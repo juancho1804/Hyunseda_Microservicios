@@ -16,7 +16,6 @@ import jakarta.persistence.*;
 public class CategoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long categoryId;
 
     @Column

@@ -1,5 +1,7 @@
 package com.api.productservice.controllers;
 
+import com.api.productservice.exceptions.ProductDomainException;
+import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.CategoryModel;
 import com.api.productservice.services.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +21,27 @@ public class CategoryController {
         return categoryService.getCategories();
     }
     @PostMapping
-    public CategoryModel save(@RequestBody CategoryModel newCategoryModel) {
+    public CategoryModel save(@RequestBody CategoryModel newCategoryModel)throws ProductDomainException {
         return categoryService.save(newCategoryModel);
     }
 
     @GetMapping(path = "/byId/{id}")
-    public Optional<CategoryModel> findById(@PathVariable("id") Long id) {
+    public CategoryModel findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         return categoryService.findById(id);
     }
 
     @GetMapping(path = "/byName/{name}")
-    public ArrayList<CategoryModel> findByName(@PathVariable("name") String name) {
+    public  CategoryModel findByName(@PathVariable("name") String name) {
         return categoryService.findByName(name);
     }
 
    @PutMapping(path = "{id}")
-    public CategoryModel updateById(@RequestBody CategoryModel categoryModel, @PathVariable("id") long id) {
+    public CategoryModel updateById(@RequestBody CategoryModel categoryModel, @PathVariable("id") long id) throws ProductDomainException,ResourceNotFoundException{
         return categoryService.updateById(categoryModel,id);
     }
 
     @DeleteMapping(path = "{id}")
-    public boolean deleteById(@PathVariable("id") Long id) {
+    public boolean deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         if(categoryService.deleteById(id)) {
             System.out.println("Categoria borrada satisfactoriamente");
             return true;

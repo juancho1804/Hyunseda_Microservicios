@@ -1,5 +1,7 @@
 package com.api.productservice.controllers;
 
+import com.api.productservice.exceptions.ProductDomainException;
+import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.ProductModel;
 import com.api.productservice.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,11 @@ public class ProductController {
         return this.productService.getProducts();
     }
     @PostMapping
-    public ProductModel createProduct(@RequestBody ProductModel product) {
+    public ProductModel createProduct(@RequestBody ProductModel product) throws ProductDomainException {
         return this.productService.save(product);
     }
     @GetMapping(path="/byId/{id}")
-    public Optional<ProductModel> getProductById(@PathVariable("id") Long id) {
+    public ProductModel getProductById(@PathVariable("id") Long id) throws ProductDomainException,ResourceNotFoundException {
         return this.productService.findById(id);
     }
     @GetMapping(path = "/byName/{name}")
@@ -31,7 +33,7 @@ public class ProductController {
         return this.productService.findByName(name);
     }
     @PutMapping(path = "/{id}")
-    public ProductModel updateById(@RequestBody ProductModel product,@PathVariable("id") long id){
+    public ProductModel updateById(@RequestBody ProductModel product,@PathVariable("id") long id)throws ProductDomainException,ResourceNotFoundException {
         return this.productService.updateById(product,id);
     }
     @DeleteMapping(path = "{id}")
