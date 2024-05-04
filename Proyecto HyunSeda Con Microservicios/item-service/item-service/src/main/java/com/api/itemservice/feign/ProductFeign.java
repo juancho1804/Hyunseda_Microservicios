@@ -15,18 +15,16 @@ public class ProductFeign implements IItemService {
     private IProductClientRest clientFeign;
 
     public ItemModel createItemFromProduct(Product product, int cantidad){
-        Product createdProduct = clientFeign.create(product);
-        ItemModel itemModel = new ItemModel(createdProduct,cantidad);
+        //product = clientFeign.create(product);
+        ItemModel itemModel = new ItemModel(product,cantidad);
         return itemModel;
     }
     public List<ItemModel> findAll() {
         return clientFeign.list().stream().map(p -> new ItemModel(p)).collect(Collectors.toList());
     }
 
-
-
     public ItemModel findById(Long id) {
-        return new ItemModel(clientFeign.detail(id),1);
+        return new ItemModel(clientFeign.findProductbyId(id),1);
     }
 
 

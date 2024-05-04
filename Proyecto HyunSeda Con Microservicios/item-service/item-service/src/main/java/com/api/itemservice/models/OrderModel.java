@@ -14,7 +14,8 @@ public class OrderModel {
     private Long id;
     @Column
     private String date;
+    @Column
+    private String state;
 
-    //state
 
 }

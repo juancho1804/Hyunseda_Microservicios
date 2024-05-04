@@ -12,7 +12,7 @@ public interface IProductClientRest {
     public List<Product> list();
 
     @GetMapping("/ProductModel/byId/{id}")
-    public Product detail(@PathVariable("id") Long id);
+    public Product findProductbyId(@PathVariable("id") Long id);
 
     @GetMapping("/ProductModel/byName/{name}")
     public List<Product> findByName(@PathVariable("name") String name);

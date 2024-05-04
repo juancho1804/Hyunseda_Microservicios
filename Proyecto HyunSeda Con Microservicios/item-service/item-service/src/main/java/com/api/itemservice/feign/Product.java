@@ -19,5 +19,5 @@ public class Product {
     @Column
     private Double price;
     @Column
-    private Date createAt;
+    private String description;
 }

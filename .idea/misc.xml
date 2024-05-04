@@ -6,8 +6,10 @@
       <list>
         <option value="$PROJECT_DIR$/item-service/item-service/pom.xml" />
         <option value="$PROJECT_DIR$/product-service/product-service/pom.xml" />
+        <option value="$PROJECT_DIR$/client-service/client-service/pom.xml" />
         <option value="$PROJECT_DIR$/Proyecto HyunSeda Con Microservicios/item-service/item-service/pom.xml" />
         <option value="$PROJECT_DIR$/Proyecto HyunSeda Con Microservicios/product-service/product-service/pom.xml" />
+        <option value="$PROJECT_DIR$/Proyecto HyunSeda Con Microservicios/client-service/client-service/pom.xml" />
       </list>
     </option>
   </component>
