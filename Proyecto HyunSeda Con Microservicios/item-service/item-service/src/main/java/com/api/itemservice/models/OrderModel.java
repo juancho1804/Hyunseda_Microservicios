@@ -3,6 +3,9 @@ package com.api.itemservice.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -17,5 +20,6 @@ public class OrderModel {
     @Column
     private String state;
 
-
+    @OneToMany
+    private List<ItemModel> items;
 }

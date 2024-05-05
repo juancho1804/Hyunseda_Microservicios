@@ -25,10 +25,6 @@ public class ItemModel {
     @Column
     private double subtotal;
 
-    @ManyToOne
-    @JoinColumn(name = "shopping_cart_id")
-    private ShoppingCartModel shoppingCartModel;
-
 
 
     public ItemModel() {
@@ -43,12 +39,6 @@ public class ItemModel {
         this.product = product;
         this.cantidad = cantidad;
         this.subtotal = this.cantidad*this.product.getPrice();
-    }
-    public ItemModel(ProductModel product, Integer cantidad, ShoppingCartModel shoppingCartModel) {
-        this.product = product;
-        this.cantidad = cantidad;
-        this.subtotal = this.cantidad*this.product.getPrice();
-        this.shoppingCartModel = shoppingCartModel;
     }
 
 

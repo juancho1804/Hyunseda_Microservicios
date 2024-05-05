@@ -13,4 +13,19 @@ import java.util.List;
 @Service
 public class ShoppingCartService {
 
+    ShoppingCartModel shoppingCartModel;
+    @Autowired
+    IShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    IItemService itemService;
+
+
+
+    public ShoppingCartModel createShoppingCart(ShoppingCartModel shoppingCartModel) {
+        return shoppingCartRepository.save(shoppingCartModel);
+    }
+    public void agregarItem(ItemModel itemModel) {
+        this.shoppingCartModel.getItems().add(itemModel);
+    }
+
 }

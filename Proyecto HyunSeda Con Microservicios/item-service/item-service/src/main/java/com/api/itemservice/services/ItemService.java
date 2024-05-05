@@ -15,12 +15,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class ItemService {
+public class ItemService implements IItemService {
     @Autowired
     private IItemRepository itemRepository;
 
     @Autowired
-    private RestTemplate restTemplate; // O puedes usar WebClient
+    private RestTemplate restTemplate; //
 
     // URL del servicio de productos
     private final String PRODUCT_SERVICE_URL = "http://localhost:8001/ProductModel";
@@ -59,6 +59,7 @@ public class ItemService {
         product=this.findById(product.getId());
         ItemModel item = new ItemModel(product,cantidad);
         itemRepository.save(item);
+        System.out.println(item.getProduct().getId());
         return item;
     }
 }

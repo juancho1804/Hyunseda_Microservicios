@@ -3,6 +3,7 @@ package com.api.itemservice.controllers;
 import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.ProductModel;
 import com.api.itemservice.models.ShoppingCartModel;
+import com.api.itemservice.services.IItemService;
 import com.api.itemservice.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private ItemService itemService; // Suponiendo que tienes un servicio llamado ItemService para manejar la lógica de negocio
+    private IItemService itemService; // Suponiendo que tienes un servicio llamado ItemService para manejar la lógica de negocio
 
     @GetMapping("/items")
     public ResponseEntity<List<ItemModel>> getAllItemsFromProducts() {
