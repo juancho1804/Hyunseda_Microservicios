@@ -1,8 +1,10 @@
 package com.api.itemservice.models;
-import com.api.itemservice.feign.Product;
+
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Setter
 @Entity
 @Table(name = "Items")
@@ -11,37 +13,43 @@ public class ItemModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
+
     @OneToOne
     @JoinColumn(name="id")
-    private Product product;
-    private Integer amount;
+    private ProductModel product;
+
+    @Getter
+    @Column
+    private Integer cantidad;
+
+    @Column
+    private double subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = "shopping_cart_id")
+    private ShoppingCartModel shoppingCartModel;
+
+
 
     public ItemModel() {
     }
-    public ItemModel(Product product) {
+    public ItemModel(ProductModel product) {
         this.product = product;
-        this.amount = 0;
+        this.cantidad = 0;
+        this.subtotal = 0;
     }
 
-    public ItemModel(Product producto, Integer cantidad) {
-        this.product = producto;
-        this.amount = cantidad;
+    public ItemModel(ProductModel product, Integer cantidad) {
+        this.product = product;
+        this.cantidad = cantidad;
+        this.subtotal = this.cantidad*this.product.getPrice();
+    }
+    public ItemModel(ProductModel product, Integer cantidad, ShoppingCartModel shoppingCartModel) {
+        this.product = product;
+        this.cantidad = cantidad;
+        this.subtotal = this.cantidad*this.product.getPrice();
+        this.shoppingCartModel = shoppingCartModel;
     }
 
-    public Product getProducto() {
-        return product;
-    }
-
-    public Integer getCantidad() {
-        return amount;
-    }
-
-    public Double getTotal() {
-        if (product != null) {
-            return product.getPrice() * amount.doubleValue();
-        } else {
-            return 0.0; // Otra acción adecuada en caso de que el producto sea nulo
-        }
-    }
 
 }

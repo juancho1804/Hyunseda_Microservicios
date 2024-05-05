@@ -1,46 +1,38 @@
 package com.api.itemservice.controllers;
 
 import com.api.itemservice.models.ItemModel;
-import com.api.itemservice.feign.Product;
-import com.api.itemservice.services.IItemService;
+import com.api.itemservice.models.ProductModel;
+import com.api.itemservice.models.ShoppingCartModel;
+import com.api.itemservice.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
 @RestController
-@RequestMapping("/items")
 public class ItemController {
+
     @Autowired
-    private IItemService itemService;
+    private ItemService itemService; // Suponiendo que tienes un servicio llamado ItemService para manejar la lógica de negocio
 
-    @GetMapping
-    public List<ItemModel> findAll() {
-        return itemService.findAll();
+    @GetMapping("/items")
+    public ResponseEntity<List<ItemModel>> getAllItemsFromProducts() {
+        // Consumir el servicio de productos para obtener la lista de productos y crear ítems basados en esos productos
+        List<ItemModel> items = itemService.getItemsFromProducts();
+
+        // Devolver los ítems creados como respuesta
+        return new ResponseEntity<>(items, HttpStatus.OK);
     }
-
-    @GetMapping("/byId/{id}")
-    public ItemModel findById(@PathVariable Long id) {
+    @PostMapping("/items")
+    public ItemModel createItem(@RequestBody ProductModel productModel, @RequestParam int cantidad) {
+        ItemModel itemModel=itemService.createItemFromProduct(productModel, cantidad);
+        return itemModel;
+    }
+    @GetMapping("/items/{id}")
+    public ProductModel getProductById(@PathVariable("id") Long id) {
         return itemService.findById(id);
-    }
-    @GetMapping("/byName/{name}")
-    public ArrayList<ItemModel> findByName(@PathVariable("name") String name) {
-        return itemService.findByName(name);
-    }
 
-    @PostMapping("/createItemFromProduct")
-    public ItemModel create(@RequestBody Product product, @RequestParam int cantidad) {
-        return itemService.createItemFromProduct(product,cantidad);
-    }
-
-    @PutMapping("/{id}")
-    public Product update(@RequestBody Product producto, @PathVariable Long id) {
-        return itemService.update(producto, id);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        itemService.delete(id);
     }
 }

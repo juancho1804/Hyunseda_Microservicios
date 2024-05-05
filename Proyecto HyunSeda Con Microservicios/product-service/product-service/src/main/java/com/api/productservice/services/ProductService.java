@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class
-ProductService implements IProductService {
+public class ProductService implements IProductService {
     @Autowired
     IProductRepository productRepository;
 
