@@ -67,7 +67,9 @@ ProductService implements IProductService {
         product.setName(newProduct.getName());
         product.setDescription(newProduct.getDescription());
         product.setPrice(newProduct.getPrice());
+        product.setImage(newProduct.getImage());
         product.setCategory(newProduct.getCategory());
+
         productRepository.save(product);
         return product;
     }
@@ -92,6 +94,7 @@ ProductService implements IProductService {
             errors.add(new ProductError(EnumErrorCodes.INVALID_NUMBER, "price",
                     "El precio del producto es obligatorio y mayor a cero"));
         }
+
         return errors;
 
     }
