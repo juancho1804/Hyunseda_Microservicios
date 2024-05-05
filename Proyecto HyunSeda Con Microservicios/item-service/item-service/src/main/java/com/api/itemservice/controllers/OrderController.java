@@ -1,5 +1,6 @@
 package com.api.itemservice.controllers;
 
+import com.api.itemservice.models.ClientModel;
 import com.api.itemservice.models.OrderModel;
 import com.api.itemservice.services.IOrderService;
 import com.api.itemservice.services.OrderService;
@@ -21,5 +22,13 @@ public class OrderController {
     @GetMapping
     public List<OrderModel> getAllOrders() {
         return  orderService.listOrders();
+    }
+    @GetMapping(path = "/client/{id}")
+    public ClientModel findClientById(@PathVariable("id") Integer id) {
+        return  orderService.findClientById(id);
+    }
+    @PostMapping(path = "/{id}")
+    public OrderModel createOrderClient(@PathVariable("id") Integer id, @RequestBody OrderModel order){
+        return this.orderService.crearOrderCliente(id, order);
     }
 }

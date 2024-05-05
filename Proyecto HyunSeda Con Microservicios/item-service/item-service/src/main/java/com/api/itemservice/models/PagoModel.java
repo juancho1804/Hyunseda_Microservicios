@@ -16,8 +16,4 @@ public class PagoModel {
     @Column
     private double total;
 
-    @OneToOne
-    @JoinColumn(name="id")
-    private ShoppingCartModel shoppingCartModel;
-
 }

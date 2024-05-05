@@ -1,16 +1,17 @@
-package com.example.clientservice.model.entity;
+package com.api.itemservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="clients")
+@Getter
+@Setter
 @Entity
-public class Client {
+public class ClientModel {
     @Id
     @GeneratedValue
     private Integer id;
@@ -20,6 +21,4 @@ public class Client {
     private String lastName;
     @Column
     private String address;
-
-
 }

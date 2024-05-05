@@ -2,9 +2,7 @@ package com.api.itemservice.controllers;
 
 import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.ProductModel;
-import com.api.itemservice.models.ShoppingCartModel;
 import com.api.itemservice.services.IItemService;
-import com.api.itemservice.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

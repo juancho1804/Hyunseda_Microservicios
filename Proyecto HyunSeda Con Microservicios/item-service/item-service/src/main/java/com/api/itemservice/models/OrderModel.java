@@ -22,4 +22,17 @@ public class OrderModel {
 
     @OneToMany
     private List<ItemModel> items;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private ClientModel client;
+
+    public OrderModel() {
+    }
+    public OrderModel(Long id, String date, String state, List<ItemModel> items, ClientModel client) {
+        this.id = id;
+        this.date = date;
+        this.state = state;
+        this.items = items;
+    }
 }
