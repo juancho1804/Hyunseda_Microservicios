@@ -17,8 +17,6 @@ public class OrderModel {
     private Long id;
     @Column
     private String date;
-    @Column
-    private String state;
 
     @OneToMany
     private List<ItemModel> items;
@@ -29,10 +27,9 @@ public class OrderModel {
 
     public OrderModel() {
     }
-    public OrderModel(Long id, String date, String state, List<ItemModel> items, ClientModel client) {
+    public OrderModel(Long id, String date, List<ItemModel> items, ClientModel client) {
         this.id = id;
         this.date = date;
-        this.state = state;
         this.items = items;
     }
 }
