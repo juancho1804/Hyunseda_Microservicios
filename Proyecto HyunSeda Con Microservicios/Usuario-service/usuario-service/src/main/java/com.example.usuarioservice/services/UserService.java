@@ -6,8 +6,9 @@ import com.example.usuarioservice.exceptions.UserDomainException;
 import com.example.usuarioservice.exceptions.UserError;
 import com.example.usuarioservice.models.UserModel;
 import com.example.usuarioservice.repositories.IUserRepository;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,15 +45,15 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public ArrayList<UserModel> findByName(String name) {
+    public UserModel findByName(String name) {
         ArrayList<UserModel> userList = (ArrayList<UserModel>) this.userRepository.findAll();
-        ArrayList<UserModel> usersWithNamel = new ArrayList<>();
+        //UserModel userRequest;
         for (UserModel user : userList) {
             if (name.equalsIgnoreCase(user.getName())) {
-                usersWithNamel.add(user);
+                return user;
             }
         }
-        return usersWithNamel;
+        return null;
     }
 
     @Override
@@ -86,6 +87,33 @@ public class UserService implements IUserService{
         }
         return true;
     }
+/*
+    public boolean validateUserCredentials(String username, String password) {
+        // Buscar el usuario por su nombre de usuario
+        UserModel user = this.findByName(username);
+
+        // Verificar si el usuario existe
+        if (user != null) {
+            if(user.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+ */
+public ResponseEntity<Boolean> validateUserCredentials(String username, String password) {
+    // Buscar el usuario por su nombre de usuario
+    UserModel user = this.findByName(username);
+
+    // Verificar si el usuario existe y si la contraseña coincide
+    if (user != null && user.getPassword().equals(password)) {
+        return ResponseEntity.ok(true); // Credenciales válidas
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false); // Credenciales inválidas
+    }
+}
+
 
     private List<UserError> validateDomain(UserModel user) {
         List<UserError> errors = new ArrayList<>();
@@ -96,6 +124,10 @@ public class UserService implements IUserService{
 
         if (user.getPassword() == null || user.getPassword().isBlank()) {
             errors.add(new UserError(EnumErrorCodes.EMPTY_FIELD, "password", "La contraseña del usuario es obligatoria"));
+
+        }
+        if(this.findByName(user.getName())!=null){
+            errors.add(new UserError(EnumErrorCodes.EXISTENT_FIELD, "name", "El nombre de usuario ya existe"));
 
         }
         return errors;

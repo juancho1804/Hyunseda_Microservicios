@@ -5,6 +5,7 @@ import com.example.usuarioservice.exceptions.UserDomainException;
 import com.example.usuarioservice.models.UserModel;
 import com.example.usuarioservice.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class UserController {
         return this.userService.findById(id);
     }
     @GetMapping(path = "/byName/{name}")
-    public ArrayList<UserModel> getUserByName(@PathVariable("name") String name) {
+    public UserModel getUserByName(@PathVariable("name") String name) {
         return this.userService.findByName(name);
     }
     @PutMapping(path = "/{id}")
@@ -45,6 +46,10 @@ public class UserController {
         }
         System.out.println("User not deleted successfully");
         return false;
+    }
+    @GetMapping(path="/validate/{username}/{password}")
+    public ResponseEntity<Boolean> validarUsuario(@PathVariable("username")String username, @PathVariable("password")String password){
+        return this.userService.validateUserCredentials(username,password);
     }
 
 }
