@@ -1,4 +1,4 @@
-package com.example.usuarioservice.models;
+package com.api.usuarioservice.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,11 +1,11 @@
-package com.example.usuarioservice.services;
+package com.api.usuarioservice.services;
 
-import com.example.usuarioservice.exceptions.EnumErrorCodes;
-import com.example.usuarioservice.exceptions.ResourceNotFoundException;
-import com.example.usuarioservice.exceptions.UserDomainException;
-import com.example.usuarioservice.exceptions.UserError;
-import com.example.usuarioservice.models.UserModel;
-import com.example.usuarioservice.repositories.IUserRepository;
+import com.api.usuarioservice.exceptions.EnumErrorCodes;
+import com.api.usuarioservice.exceptions.ResourceNotFoundException;
+import com.api.usuarioservice.exceptions.UserDomainException;
+import com.api.usuarioservice.exceptions.UserError;
+import com.api.usuarioservice.models.UserModel;
+import com.api.usuarioservice.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

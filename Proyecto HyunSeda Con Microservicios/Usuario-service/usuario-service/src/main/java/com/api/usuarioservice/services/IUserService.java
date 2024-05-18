@@ -1,8 +1,8 @@
-package com.example.usuarioservice.services;
+package com.api.usuarioservice.services;
 
-import com.example.usuarioservice.exceptions.ResourceNotFoundException;
-import com.example.usuarioservice.exceptions.UserDomainException;
-import com.example.usuarioservice.models.UserModel;
+import com.api.usuarioservice.exceptions.ResourceNotFoundException;
+import com.api.usuarioservice.exceptions.UserDomainException;
+import com.api.usuarioservice.models.UserModel;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;

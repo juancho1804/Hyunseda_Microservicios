@@ -1,4 +1,4 @@
-package com.example.usuarioservice.exceptions;
+package com.api.usuarioservice.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.usuarioservice.models;
+package com.api.usuarioservice.models;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;

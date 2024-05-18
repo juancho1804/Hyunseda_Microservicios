@@ -1,10 +1,10 @@
-package com.example.usuarioservice.services;
+package com.api.usuarioservice.services;
 
+import com.api.usuarioservice.exceptions.ResourceNotFoundException;
+import com.api.usuarioservice.exceptions.UserDomainException;
 import org.springframework.stereotype.Service;
 
-import com.example.usuarioservice.exceptions.ResourceNotFoundException;
-import com.example.usuarioservice.exceptions.UserDomainException;
-import com.example.usuarioservice.models.RoleModel;
+import com.api.usuarioservice.models.RoleModel;
 
 import java.util.ArrayList;
 

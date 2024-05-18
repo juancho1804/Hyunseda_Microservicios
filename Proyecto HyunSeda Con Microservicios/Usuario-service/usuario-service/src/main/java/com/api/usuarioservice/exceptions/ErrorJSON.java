@@ -1,4 +1,4 @@
-package com.example.usuarioservice.exceptions;
+package com.api.usuarioservice.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

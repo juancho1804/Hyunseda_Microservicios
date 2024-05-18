@@ -1,11 +1,11 @@
-package com.example.usuarioservice.services;
+package com.api.usuarioservice.services;
 
-import com.example.usuarioservice.exceptions.EnumErrorCodes;
-import com.example.usuarioservice.exceptions.ResourceNotFoundException;
-import com.example.usuarioservice.exceptions.UserDomainException;
-import com.example.usuarioservice.exceptions.UserError;
-import com.example.usuarioservice.models.RoleModel;
-import com.example.usuarioservice.repositories.IRoleRepository;
+import com.api.usuarioservice.exceptions.EnumErrorCodes;
+import com.api.usuarioservice.exceptions.ResourceNotFoundException;
+import com.api.usuarioservice.exceptions.UserDomainException;
+import com.api.usuarioservice.exceptions.UserError;
+import com.api.usuarioservice.models.RoleModel;
+import com.api.usuarioservice.repositories.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
