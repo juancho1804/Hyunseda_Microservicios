@@ -38,6 +38,7 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(token)
                 .role(role)
+                .username(username)
                 .build();
 
     }

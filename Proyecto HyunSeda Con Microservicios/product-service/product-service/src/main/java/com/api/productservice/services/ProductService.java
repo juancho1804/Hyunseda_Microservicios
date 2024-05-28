@@ -4,15 +4,17 @@ import com.api.productservice.exceptions.EnumErrorCodes;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ProductError;
 import com.api.productservice.exceptions.ResourceNotFoundException;
+import com.api.productservice.inputport.IProductService;
+import com.api.productservice.models.CategoryModel;
 import com.api.productservice.models.ProductModel;
-import com.api.productservice.repositories.IProductRepository;
+import com.api.productservice.outputport.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @Service
 public class ProductService implements IProductService {
@@ -29,6 +31,24 @@ public class ProductService implements IProductService {
             throw new ProductDomainException(errors);
         }
         return productRepository.save(newProduct);
+    }
+
+    public Map<String, Integer> contarProductosPorCategoria() {
+        List<ProductModel> productList = productRepository.findAll();
+        Map<String, Integer> productosPorCategoria = new HashMap<>();
+
+        for (ProductModel product : productList) {
+            String categoria = product.getCategory().getName();
+            if (productosPorCategoria.containsKey(categoria)) {
+                // Si la categoría ya existe en el mapa, incrementa el contador
+                productosPorCategoria.put(categoria, productosPorCategoria.get(categoria) + 1);
+            } else {
+                // Si la categoría no existe en el mapa, añade la categoría con un contador inicial de 1
+                productosPorCategoria.put(categoria, 1);
+            }
+        }
+
+        return productosPorCategoria;
     }
 
 

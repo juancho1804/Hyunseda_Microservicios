@@ -1,14 +1,13 @@
-package com.api.productservice.controllers;
+package com.api.productservice.inputadapter;
 
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.CategoryModel;
-import com.api.productservice.services.ICategoryService;
+import com.api.productservice.inputport.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/CategoryModel")

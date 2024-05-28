@@ -1,4 +1,4 @@
-package com.api.productservice.repositories;
+package com.api.productservice.outputport;
 
 import com.api.productservice.models.CategoryModel;
 import org.springframework.data.jpa.repository.JpaRepository;

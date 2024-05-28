@@ -4,15 +4,14 @@ import com.api.productservice.exceptions.EnumErrorCodes;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ProductError;
 import com.api.productservice.exceptions.ResourceNotFoundException;
+import com.api.productservice.inputport.ICategoryService;
 import com.api.productservice.models.CategoryModel;
-import com.api.productservice.models.ProductModel;
-import com.api.productservice.repositories.ICategoryRepository;
+import com.api.productservice.outputport.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryService implements ICategoryService {

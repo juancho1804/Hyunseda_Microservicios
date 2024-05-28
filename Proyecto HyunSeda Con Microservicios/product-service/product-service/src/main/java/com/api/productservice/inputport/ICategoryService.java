@@ -1,11 +1,10 @@
-package com.api.productservice.services;
+package com.api.productservice.inputport;
 
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.CategoryModel;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public interface ICategoryService {
     public ArrayList<CategoryModel> getCategories();
