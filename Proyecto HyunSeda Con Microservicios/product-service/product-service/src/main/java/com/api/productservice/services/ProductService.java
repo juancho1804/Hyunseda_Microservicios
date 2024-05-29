@@ -9,6 +9,7 @@ import com.api.productservice.models.CategoryModel;
 import com.api.productservice.models.ProductModel;
 import com.api.productservice.outputport.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -100,8 +101,9 @@ public class ProductService implements IProductService {
             throw new ResourceNotFoundException();
         }
 
-
-
+    }
+    public List<ProductModel>findByMatchingName(String name){
+        return this.productRepository.findByMatchingName(name.toLowerCase());
     }
 
 

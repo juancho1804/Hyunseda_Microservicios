@@ -5,6 +5,7 @@ import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.ProductModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface IProductService {
@@ -15,4 +16,5 @@ public interface IProductService {
         public ProductModel updateById(ProductModel newProduct,long id) throws ProductDomainException,ResourceNotFoundException;
         public void deleteById(Long id)throws ResourceNotFoundException;
         public Map<String, Integer> contarProductosPorCategoria();
+        public List<ProductModel> findByMatchingName(String name);
 }

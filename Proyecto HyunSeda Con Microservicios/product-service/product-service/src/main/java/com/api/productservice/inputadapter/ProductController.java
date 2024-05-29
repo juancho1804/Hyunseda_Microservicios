@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,6 +45,12 @@ public class ProductController {
     @GetMapping(path = "/contarProductosPorCategoria")
     public Map<String, Integer> contarProductosPorCategoria() {
         return this.productService.contarProductosPorCategoria();
+    }
+
+    @GetMapping("/byNameMatching/{name}")
+    public List<ProductModel> findByMatchingName(@PathVariable String name) {
+        // Lógica para buscar productos por coincidencia de cadenas en el nombre
+        return productService.findByMatchingName(name);
     }
 
 
