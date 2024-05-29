@@ -92,13 +92,16 @@ public class ProductService implements IProductService {
         productRepository.save(product);
         return product;
     }
-    public boolean deleteById(Long id){
-        try{
+    public void deleteById(Long id) throws ResourceNotFoundException{
+
+        if(productRepository.findById(id).isPresent()){
             this.productRepository.deleteById(id);
-        }catch (Exception e){
-            return false;
+        }else{
+            throw new ResourceNotFoundException();
         }
-        return true;
+
+
+
     }
 
 

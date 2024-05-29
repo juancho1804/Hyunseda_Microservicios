@@ -13,6 +13,6 @@ public interface IProductService {
         public ProductModel findById(Long id) throws ResourceNotFoundException;
         public ArrayList<ProductModel> findByName(String name);
         public ProductModel updateById(ProductModel newProduct,long id) throws ProductDomainException,ResourceNotFoundException;
-        public boolean deleteById(Long id);
+        public void deleteById(Long id)throws ResourceNotFoundException;
         public Map<String, Integer> contarProductosPorCategoria();
 }

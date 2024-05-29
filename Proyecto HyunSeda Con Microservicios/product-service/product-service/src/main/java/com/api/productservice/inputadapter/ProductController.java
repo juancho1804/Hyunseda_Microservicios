@@ -37,14 +37,8 @@ public class ProductController {
         return this.productService.updateById(product,id);
     }
     @DeleteMapping(path = "{id}")
-    public boolean deleteById(@PathVariable("id") long id) {
-        boolean ok=this.productService.deleteById(id);
-        if(ok){
-            System.out.println("Product deleted successfully");
-            return true;
-        }
-        System.out.println("Product not deleted successfully");
-        return false;
+    public void deleteById(@PathVariable("id") long id) throws ResourceNotFoundException{
+         productService.deleteById(id);
     }
 
     @GetMapping(path = "/contarProductosPorCategoria")
