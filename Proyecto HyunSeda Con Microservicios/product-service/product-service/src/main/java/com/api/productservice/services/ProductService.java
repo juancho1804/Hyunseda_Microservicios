@@ -105,6 +105,10 @@ public class ProductService implements IProductService {
     public List<ProductModel>findByMatchingName(String name){
         return this.productRepository.findByMatchingName(name.toLowerCase());
     }
+    public List<ProductModel>findByMatchingId(String id){
+        return this.productRepository.findByMatchingId(id);
+    }
+
 
 
     private List<ProductError> validateDomain(ProductModel product) {

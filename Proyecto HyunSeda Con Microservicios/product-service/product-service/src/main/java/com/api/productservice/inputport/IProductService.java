@@ -17,4 +17,5 @@ public interface IProductService {
         public void deleteById(Long id)throws ResourceNotFoundException;
         public Map<String, Integer> contarProductosPorCategoria();
         public List<ProductModel> findByMatchingName(String name);
+        public List<ProductModel> findByMatchingId(String id);
 }

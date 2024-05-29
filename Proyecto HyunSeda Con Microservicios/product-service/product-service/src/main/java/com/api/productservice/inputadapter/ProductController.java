@@ -53,6 +53,12 @@ public class ProductController {
         return productService.findByMatchingName(name);
     }
 
+    @GetMapping("/byIdMatching/{id}")
+    public List<ProductModel> findByMatchingId(@PathVariable String id) {
+        // Lógica para buscar productos por coincidencia de cadenas en el id
+        return productService.findByMatchingId(id);
+    }
+
 
 
 }
