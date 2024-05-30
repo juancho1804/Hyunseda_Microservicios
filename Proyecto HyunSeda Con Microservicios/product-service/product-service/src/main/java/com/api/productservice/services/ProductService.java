@@ -108,6 +108,9 @@ public class ProductService implements IProductService {
     public List<ProductModel>findByMatchingId(String id){
         return this.productRepository.findByMatchingId(id);
     }
+    public List<ProductModel> findByMatchingCategoryName(String categoryName){
+        return this.productRepository.findByMatchingCategoryName(categoryName);
+    }
 
 
 

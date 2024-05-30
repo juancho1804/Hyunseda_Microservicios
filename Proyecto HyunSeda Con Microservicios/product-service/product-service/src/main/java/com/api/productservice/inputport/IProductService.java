@@ -3,6 +3,7 @@ package com.api.productservice.inputport;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.ProductModel;
+import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface IProductService {
         public Map<String, Integer> contarProductosPorCategoria();
         public List<ProductModel> findByMatchingName(String name);
         public List<ProductModel> findByMatchingId(String id);
+        List<ProductModel> findByMatchingCategoryName(String categoryName);
 }

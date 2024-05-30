@@ -14,4 +14,7 @@ public interface IProductRepository extends JpaRepository<ProductModel,Long> {
 
     @Query("SELECT p FROM ProductModel p WHERE LOWER(CAST(p.id AS string)) LIKE %:id%")
     List<ProductModel> findByMatchingId(@Param("id") String id);
+
+    @Query("SELECT p FROM ProductModel p WHERE LOWER(p.category.name) LIKE %:categoryName%")
+    List<ProductModel> findByMatchingCategoryName(@Param("categoryName") String categoryName);
 }

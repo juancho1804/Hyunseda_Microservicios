@@ -58,6 +58,10 @@ public class ProductController {
         // Lógica para buscar productos por coincidencia de cadenas en el id
         return productService.findByMatchingId(id);
     }
+    @GetMapping("/byCategoryMatching/{name}")
+    public List<ProductModel> findByMatchingCategory(@PathVariable String name) {
+        return productService.findByMatchingCategoryName(name);
+    }
 
 
 
