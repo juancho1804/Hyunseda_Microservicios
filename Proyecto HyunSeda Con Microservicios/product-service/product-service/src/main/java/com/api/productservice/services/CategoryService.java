@@ -74,6 +74,7 @@ public class CategoryService implements ICategoryService {
         if(categoryModel==null){
             throw new ResourceNotFoundException();
         }
+        this.categoryRepository.deleteById(id);
         return true;
     }
 
