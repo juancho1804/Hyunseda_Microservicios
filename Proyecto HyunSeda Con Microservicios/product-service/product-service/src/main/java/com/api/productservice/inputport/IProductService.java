@@ -2,7 +2,9 @@ package com.api.productservice.inputport;
 
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
+import com.api.productservice.models.CategoryModel;
 import com.api.productservice.models.ProductModel;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;

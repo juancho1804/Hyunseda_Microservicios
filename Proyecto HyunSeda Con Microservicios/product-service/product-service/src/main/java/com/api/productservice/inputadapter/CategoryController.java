@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/CategoryModel")
@@ -47,5 +48,13 @@ public class CategoryController {
         }
         System.out.println("Error al eliminar la categoria");
         return false;
+    }
+    @GetMapping(path ="/findByMatchingName/{name}")
+    List<CategoryModel> findByMatchingName(@PathVariable String name){
+        return categoryService.findByMatchingName(name);
+    }
+    @GetMapping(path ="/findByMatchingId/{id}")
+    List<CategoryModel> findByMatchingId(@PathVariable String id){
+        return categoryService.findByMatchingId(id);
     }
 }

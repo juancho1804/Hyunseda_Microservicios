@@ -77,6 +77,13 @@ public class CategoryService implements ICategoryService {
         return true;
     }
 
+    public List<CategoryModel> findByMatchingName(String name){
+        return categoryRepository.findByMatchingName(name);
+    }
+    public List<CategoryModel> findByMatchingId(String id){
+        return categoryRepository.findByMatchingId(id);
+    }
+
     private List<ProductError> validateDomain(CategoryModel categoryModel) {
         List<ProductError> errors = new ArrayList<>();
 
