@@ -19,7 +19,7 @@ public class ItemService implements IItemService {
     private IItemRepository itemRepository;
 
     @Autowired
-    private RestTemplate restTemplate; //
+    private RestTemplate restTemplate;
 
     // URL del servicio de productos
     private final String PRODUCT_SERVICE_URL = "http://localhost:8001/ProductModel";
@@ -35,8 +35,8 @@ public class ItemService implements IItemService {
             List<ItemModel> items = new ArrayList<>();
             for (ProductModel product : products) {
                 // Lógica para crear ítems desde productos
-                //ItemModel item = createItemFromProduct(product);
-                //items.add(item);
+                ItemModel item = new ItemModel(product,0);
+                items.add(item);
             }
             return items;
         } else {

@@ -23,6 +23,9 @@ public class ProductModel {
     @Column
     private double price;
 
+    @Column
+    private String image;
+
     @ManyToOne
     @JoinColumn(name="category_id")
     private CategoryModel category;

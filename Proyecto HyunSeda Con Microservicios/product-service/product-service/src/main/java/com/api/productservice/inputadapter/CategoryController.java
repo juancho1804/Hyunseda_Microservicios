@@ -35,12 +35,12 @@ public class CategoryController {
         return categoryService.findByName(name);
     }
 
-   @PutMapping(path = "{id}")
+   @PutMapping(path = "/{id}")
     public CategoryModel updateById(@RequestBody CategoryModel categoryModel, @PathVariable("id") long id) throws ProductDomainException,ResourceNotFoundException{
         return categoryService.updateById(categoryModel,id);
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/{id}")
     public boolean deleteById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         if(categoryService.deleteById(id)) {
             System.out.println("Categoria borrada satisfactoriamente");
