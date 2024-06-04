@@ -20,6 +20,9 @@ public class Client {
     private String lastName;
     @Column
     private String address;
+    @ManyToOne
+    @JoinColumn(name="username")
+    private UserModel userModel;
 
 
 }

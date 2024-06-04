@@ -3,54 +3,53 @@ package com.example.clientservice.model.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.example.clientservice.model.entity.UserModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import com.example.clientservice.model.entity.Client;
 import com.example.clientservice.repository.iClientRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.client.RestTemplate;
 
 @Service
-@RequiredArgsConstructor
-public class ClientService {
-    private final iClientRepository clientRepo;
+public class ClientService implements IClientService{
+    @Autowired
+    private iClientRepository clientRepo;
 
-    public void createClient(Client client)
-    {
-        clientRepo.save(client);
-    }
+    @Autowired
+    private RestTemplate restTemplate;
 
-    public ArrayList<Client> getClients()
-    {
-        return (ArrayList<Client>) clientRepo.findAll();
-    }
+    // URL del servicio de productos
+    private final String USER_SERVICE_URL = "http://localhost:8004/UserModel";
 
-    public Optional<Client> getClientById(Integer id)
-    {
-        return clientRepo.findById(id);
-    }
 
-    public Client updateClientById(Client request, Integer id)
-    {
-        Client client = clientRepo.findById(id).get();
+    @Override
+    public UserModel findUser(String token, String username) {
+        // Configurar cabecera con el token
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        client.setFirstName(request.getFirstName());
-        client.setLastName(request.getLastName());
-        client.setAddress(request.getAddress());
+        // Configurar la solicitud HTTP
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        return client;
-    }
+        // Realizar la solicitud HTTP GET al servicio de usuarios
+        ResponseEntity<UserModel> response = restTemplate.exchange(USER_SERVICE_URL + "/byUsername/" + username, HttpMethod.GET, entity, UserModel.class);
 
-    public Boolean deleteClientById(Integer id)
-    {
-        try
-        {
-            clientRepo.deleteById(id);
-            return true;
+        // Verificar si la solicitud fue exitosa
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody();
+        } else {
+            // Manejar el caso de error de acuerdo a tus requerimientos
+            return null;
         }
-        catch(Exception e)
-        {
-            return false;
-        }
+    }
+
+    @Override
+    public Client crearCliente(Client client) {
+        return clientRepo.save(client);
     }
 }

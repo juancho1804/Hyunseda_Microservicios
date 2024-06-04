@@ -14,24 +14,28 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Userss")
+@Table(name="Users")
 
 public class UserModel implements UserDetails {
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+ */
+    @Id
     @Column(nullable = false)
     private String username;
     @Column
     private String email;
     @Column
     private String password;
-    @Column
+    /*@Column
     private String firstName;
     @Column
     private String lastName;
+
+     */
     @Enumerated(EnumType.STRING)
     private RoleModel roleModel;
 

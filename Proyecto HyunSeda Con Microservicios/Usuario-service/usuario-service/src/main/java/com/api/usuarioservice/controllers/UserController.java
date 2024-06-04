@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controlador REST que maneja las solicitudes relacionadas con los usuarios.
@@ -27,5 +28,9 @@ public class UserController {
     @PostMapping
     public UserModel createUser(@RequestBody UserModel userModel) {
         return userService.saveUser(userModel);
+    }
+    @GetMapping("/byUsername/{username}")
+    public Optional<UserModel> getUserByUsername(@PathVariable("username") String username) {
+        return userService.findByUsername(username);
     }
 }

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "Clientes")
 public class ClientModel {
     @Id
     @GeneratedValue
