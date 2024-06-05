@@ -1,25 +1,24 @@
 package com.api.itemservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "Clientes")
+
 public class ClientModel {
     @Id
-    @GeneratedValue
-    private Integer id;
-    @Column
+    @JsonProperty("id")
+    private Long id;
+    @JsonProperty("username")
+    private String username;
+    @JsonProperty("firstName")
     private String firstName;
-    @Column
+    @JsonProperty("lastName")
     private String lastName;
-    @Column
+    @JsonProperty("address")
     private String address;
 }

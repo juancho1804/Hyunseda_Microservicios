@@ -1,13 +1,13 @@
 package com.api.itemservice.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "Orders")
 public class OrderModel {
@@ -17,19 +17,11 @@ public class OrderModel {
     private Long id;
     @Column
     private String date;
-
-    @OneToMany
-    private List<ItemModel> items;
+    @Column
+    private String items;
 
     @OneToOne
     @JoinColumn(name = "id")
     private ClientModel client;
 
-    public OrderModel() {
-    }
-    public OrderModel(Long id, String date, List<ItemModel> items, ClientModel client) {
-        this.id = id;
-        this.date = date;
-        this.items = items;
-    }
 }

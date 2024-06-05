@@ -10,7 +10,9 @@ import com.example.clientservice.repository.iClientRepository;
 
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService implements IClientService{
@@ -48,7 +50,21 @@ public class ClientService implements IClientService{
 
     @Override
     public Client crearCliente(Client client) {
-        return clientRepo.save(client);
+        Client client1=findClient(client);
+        if(client1 == null){
+            System.out.println("El cliente se guardo");
+            return clientRepo.save(client);
+        }
+        System.out.println("El cliente ya existe, no se guardo");
+        return client1;
+    }
+
+
+    public Client findClient(Client client) {
+        Optional<Client> optionalClient = clientRepo.findByUsernameAndFirstNameAndLastNameAndAddress(
+                client.getUsername(), client.getFirstName(), client.getLastName(), client.getAddress()
+        );
+        return optionalClient.orElse(null);
     }
 
     @Override
