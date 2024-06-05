@@ -11,5 +11,8 @@ import java.util.Optional;
 public interface iClientRepository extends JpaRepository<Client, Integer>{
     @Query("SELECT c FROM Client c WHERE c.username = ?1 AND c.firstName = ?2 AND c.lastName = ?3 AND c.address = ?4")
     Optional<Client> findByUsernameAndFirstNameAndLastNameAndAddress(String username, String firstName, String lastName, String address);
+
+    @Query("SELECT c FROM Client c WHERE c.id = ?1 ")
+    Optional<Client> findById(Long id);
     
 }

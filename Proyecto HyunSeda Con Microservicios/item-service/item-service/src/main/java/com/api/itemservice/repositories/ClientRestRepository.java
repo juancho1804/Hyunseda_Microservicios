@@ -12,8 +12,5 @@ public class ClientRestRepository {
 
     private final String CLIENT_SERVICE_URL = "http://localhost:8003/clients";
 
-    public ClientModel findClient(String username){
-        String url=CLIENT_SERVICE_URL +"/"+username;
-        return restClient.getForObject(url, ClientModel.class);
-    }
+
 }

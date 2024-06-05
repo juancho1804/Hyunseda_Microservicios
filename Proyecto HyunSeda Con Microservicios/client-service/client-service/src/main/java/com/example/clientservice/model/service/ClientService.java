@@ -10,7 +10,6 @@ import com.example.clientservice.repository.iClientRepository;
 
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +64,10 @@ public class ClientService implements IClientService{
                 client.getUsername(), client.getFirstName(), client.getLastName(), client.getAddress()
         );
         return optionalClient.orElse(null);
+    }
+
+    public Optional<Client> findById(Long id){
+        return clientRepo.findById(id);
     }
 
     @Override
