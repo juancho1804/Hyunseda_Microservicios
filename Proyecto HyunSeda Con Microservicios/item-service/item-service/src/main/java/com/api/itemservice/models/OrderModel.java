@@ -20,8 +20,7 @@ public class OrderModel {
     @Column
     private String items;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private ClientModel client;
+    @Column
+    private Long idClient;
 
 }

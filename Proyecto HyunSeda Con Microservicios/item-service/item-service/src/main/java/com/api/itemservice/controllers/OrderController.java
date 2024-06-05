@@ -24,12 +24,12 @@ public class OrderController {
         return  orderService.listOrders();
     }
     @GetMapping(path = "/client/{id}")
-    public ClientModel findClient(@PathVariable("id") Integer id) {
+    public ClientModel findClient(@PathVariable("id") Long id) {
         return  orderService.findClientById(id);
     }
 
     @PostMapping(path = "/{id}")
-    public OrderModel createOrderClient(@PathVariable("id") Integer id, @RequestBody OrderModel order){
+    public OrderModel createOrderClient(@PathVariable("id") Long id, @RequestBody OrderModel order){
         return this.orderService.crearOrderCliente(id, order);
     }
 }

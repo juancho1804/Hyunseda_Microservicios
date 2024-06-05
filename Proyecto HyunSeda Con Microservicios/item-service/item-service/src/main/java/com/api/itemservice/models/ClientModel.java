@@ -13,8 +13,6 @@ public class ClientModel {
     @Id
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("username")
-    private String username;
     @JsonProperty("firstName")
     private String firstName;
     @JsonProperty("lastName")

@@ -19,16 +19,16 @@ public class OrderService implements IOrderService {
     @Autowired
     private RestTemplate restTemplate; //
 
-    private final String CLIENT_SERVICE_URL = "http://localhost:8003/client";
+    private final String CLIENT_SERVICE_URL = "http://localhost:8003/clients";
 
     public OrderModel crearOrder(OrderModel order) {
         return orderRepository.save(order);
     }
 
-    public OrderModel crearOrderCliente(Integer id,OrderModel order) {
+    public OrderModel crearOrderCliente(Long id,OrderModel order) {
         ClientModel clientModel=this.findClientById(id);
         if( clientModel!=null){
-            order.setClient(clientModel);
+            order.setIdClient(clientModel.getId());
             return orderRepository.save(order);
         }
         return null;
@@ -37,8 +37,8 @@ public class OrderService implements IOrderService {
         return orderRepository.findAll();
     }
 
-    public ClientModel findClientById(Integer id) {
-        ResponseEntity<ClientModel> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/" + id, ClientModel.class);
+    public ClientModel findClientById(Long id) {
+        ResponseEntity<ClientModel> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byId/" + id, ClientModel.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             ClientModel clientModel = response.getBody();
             return clientModel;

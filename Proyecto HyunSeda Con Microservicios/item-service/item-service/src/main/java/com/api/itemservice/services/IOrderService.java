@@ -8,6 +8,6 @@ import java.util.List;
 public interface IOrderService {
     public OrderModel crearOrder(OrderModel order);
     public List<OrderModel> listOrders();
-    public OrderModel crearOrderCliente(Integer id,OrderModel order);
-    public ClientModel findClientById(Integer id);
+    public OrderModel crearOrderCliente(Long id,OrderModel order);
+    public ClientModel findClientById(Long id);
 }
