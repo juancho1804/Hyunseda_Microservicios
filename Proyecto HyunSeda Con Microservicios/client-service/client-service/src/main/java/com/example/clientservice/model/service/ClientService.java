@@ -1,9 +1,6 @@
 package com.example.clientservice.model.service;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
-import com.example.clientservice.model.entity.UserModel;
+import com.example.clientservice.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -11,8 +8,9 @@ import org.springframework.stereotype.Service;
 import com.example.clientservice.model.entity.Client;
 import com.example.clientservice.repository.iClientRepository;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 public class ClientService implements IClientService{
@@ -27,7 +25,7 @@ public class ClientService implements IClientService{
 
 
     @Override
-    public UserModel findUser(String token, String username) {
+    public User findUser(String token, String username) {
         // Configurar cabecera con el token
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
@@ -37,7 +35,7 @@ public class ClientService implements IClientService{
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         // Realizar la solicitud HTTP GET al servicio de usuarios
-        ResponseEntity<UserModel> response = restTemplate.exchange(USER_SERVICE_URL + "/byUsername/" + username, HttpMethod.GET, entity, UserModel.class);
+        ResponseEntity<User> response = restTemplate.exchange(USER_SERVICE_URL + "/byUsername/" + username, HttpMethod.GET, entity, User.class);
 
         // Verificar si la solicitud fue exitosa
         if (response.getStatusCode().is2xxSuccessful()) {
@@ -51,5 +49,26 @@ public class ClientService implements IClientService{
     @Override
     public Client crearCliente(Client client) {
         return clientRepo.save(client);
+    }
+
+    @Override
+    public Client findByUsername(String username) {
+        List<Client> clients = clientRepo.findAll();
+        for (Client client : clients) {
+            if (client.getUsername().equals(username)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Client actualizarCliente(String username,Client client) {
+        Client cli=findByUsername(username);
+        cli.setFirstName(client.getFirstName());
+        cli.setLastName(client.getLastName());
+        cli.setAddress(client.getAddress());
+
+        return clientRepo.save(cli);
     }
 }

@@ -1,12 +1,11 @@
 package com.example.clientservice.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-@Entity
-public class UserModel {
+@MappedSuperclass
+public class User {
     @Id
     private String username;
     @Column

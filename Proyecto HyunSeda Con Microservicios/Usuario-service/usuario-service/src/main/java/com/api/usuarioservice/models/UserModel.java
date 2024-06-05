@@ -15,14 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="Users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
 public class UserModel implements UserDetails {
-/*
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
- */
     @Id
     @Column(nullable = false)
     private String username;
@@ -30,12 +25,6 @@ public class UserModel implements UserDetails {
     private String email;
     @Column
     private String password;
-    /*@Column
-    private String firstName;
-    @Column
-    private String lastName;
-
-     */
     @Enumerated(EnumType.STRING)
     private RoleModel roleModel;
 
@@ -64,8 +53,5 @@ public class UserModel implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
-
 
 }
