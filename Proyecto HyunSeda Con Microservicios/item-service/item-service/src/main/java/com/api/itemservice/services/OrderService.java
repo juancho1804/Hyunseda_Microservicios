@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService implements IOrderService {
@@ -44,5 +45,10 @@ public class OrderService implements IOrderService {
             return clientModel;
         }
         return null;
+    }
+
+    @Override
+    public Optional<OrderModel> findByClientId(Long id) {
+        return orderRepository.findByClientId(id);
     }
 }

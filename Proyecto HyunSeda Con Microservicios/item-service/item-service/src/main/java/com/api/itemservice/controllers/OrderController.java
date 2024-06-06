@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @RequestMapping("/order")
 @RestController
 public class OrderController {
@@ -31,5 +33,9 @@ public class OrderController {
     @PostMapping(path = "/{id}")
     public OrderModel createOrderClient(@PathVariable("id") Long id, @RequestBody OrderModel order){
         return this.orderService.crearOrderCliente(id, order);
+    }
+    @GetMapping("/clientId/{id}")
+    public Optional<OrderModel> findOrderByClientId(@PathVariable("id")Long id){
+        return orderService.findByClientId(id);
     }
 }
