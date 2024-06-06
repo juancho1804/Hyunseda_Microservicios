@@ -84,24 +84,5 @@ public class OrderService implements IOrderService {
 
         return orders;
 
-
-        /*
-        List<ClientModel>clients=findClientsByUsername(username);
-        List<OrderModel>orders=this.orderRepository.findAll();
-
-        List<OrderModel>orderModels=new ArrayList<>();
-
-        if(clients!=null){
-            for(OrderModel order:orders) {
-                for (ClientModel clientModel : clients) {
-                    if (order.getClientModel().getId().equals(clientModel.getId())){
-                        orderModels.add(order);
-                    }
-                }
-            }
-        }
-
-         */
-
     }
 }
