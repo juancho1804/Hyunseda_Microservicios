@@ -71,6 +71,11 @@ public class ClientService implements IClientService{
     }
 
     @Override
+    public List<Client> findClientsByUsername(String username) {
+        return clientRepo.findClientsByUsername(username);
+    }
+
+    @Override
     public Client findByUsername(String username) {
         List<Client> clients = clientRepo.findAll();
         for (Client client : clients) {

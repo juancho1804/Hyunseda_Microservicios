@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +31,7 @@ public class OrderService implements IOrderService {
     public OrderModel crearOrderCliente(Long id,OrderModel order) {
         ClientModel clientModel=this.findClientById(id);
         if( clientModel!=null){
-            order.setIdClient(clientModel.getId());
+            order.setClientModel(clientModel);
             return orderRepository.save(order);
         }
         return null;
@@ -48,7 +50,58 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public List<ClientModel> findClientsByUsername(String username) {
+        ResponseEntity<ClientModel[]> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byUsername/" + username, ClientModel[].class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            ClientModel[] clientsArray = response.getBody();
+            if (clientsArray != null) {
+                return Arrays.asList(clientsArray);
+            }
+        }
+
+        return List.of(); // Devolver una lista vacía si no se encontraron clientes o hubo un error
+    }
+
+
+    @Override
     public Optional<OrderModel> findByClientId(Long id) {
         return orderRepository.findByClientId(id);
+    }
+
+    @Override
+    public List<OrderModel> findOrdersByUserOfClients(String username) {
+
+        List<ClientModel> clients = this.findClientsByUsername(username);
+        List<OrderModel> orders = new ArrayList<>();
+
+        for (ClientModel clientModel : clients) {
+            Optional<OrderModel> orderModelOptional = this.findByClientId(clientModel.getId());
+            if (orderModelOptional.isPresent()) {
+                orders.add(orderModelOptional.get());
+            }
+        }
+
+        return orders;
+
+
+        /*
+        List<ClientModel>clients=findClientsByUsername(username);
+        List<OrderModel>orders=this.orderRepository.findAll();
+
+        List<OrderModel>orderModels=new ArrayList<>();
+
+        if(clients!=null){
+            for(OrderModel order:orders) {
+                for (ClientModel clientModel : clients) {
+                    if (order.getClientModel().getId().equals(clientModel.getId())){
+                        orderModels.add(order);
+                    }
+                }
+            }
+        }
+
+         */
+
     }
 }

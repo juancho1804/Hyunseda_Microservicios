@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Orders")
+@Table(name = "OrdersPRUEBA1")
 public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class OrderModel {
     @Column
     private String items;
 
-    @Column
-    private Long idClient;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ClientModel clientModel;
 
 }

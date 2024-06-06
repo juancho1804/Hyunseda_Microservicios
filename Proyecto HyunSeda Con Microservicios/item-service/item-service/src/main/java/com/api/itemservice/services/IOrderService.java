@@ -13,4 +13,6 @@ public interface IOrderService {
     public ClientModel findClientById(Long id);
 
     public Optional<OrderModel> findByClientId(Long id);
+    public List<ClientModel> findClientsByUsername(String username);
+    public List<OrderModel>findOrdersByUserOfClients(String username);
 }

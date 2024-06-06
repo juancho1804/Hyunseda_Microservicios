@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 
 public class ClientModel {
     @Id
-    @JsonProperty("id")
     private Long id;
-    @JsonProperty("firstName")
+    @Column
     private String firstName;
-    @JsonProperty("lastName")
+    @Column
     private String lastName;
-    @JsonProperty("address")
+    @Column
     private String address;
 }

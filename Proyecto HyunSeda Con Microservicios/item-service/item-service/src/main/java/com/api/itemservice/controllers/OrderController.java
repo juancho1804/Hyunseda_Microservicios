@@ -38,4 +38,14 @@ public class OrderController {
     public Optional<OrderModel> findOrderByClientId(@PathVariable("id")Long id){
         return orderService.findByClientId(id);
     }
+
+    @GetMapping("/findByUser/{username}")
+    public List<OrderModel>findOrdersByUserOfClients(@PathVariable("username") String username){
+        return this.orderService.findOrdersByUserOfClients(username);
+    }
+
+    @GetMapping("/users/{username}")
+    public List<ClientModel> findClientsByUsername(@PathVariable("username") String username){
+        return this.orderService.findClientsByUsername(username);
+    }
 }

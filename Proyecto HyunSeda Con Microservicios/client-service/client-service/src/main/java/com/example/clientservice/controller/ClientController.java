@@ -39,4 +39,9 @@ public class ClientController {
     public Optional<Client>findById(@PathVariable Long id){
         return clientService.findById(id);
     }
+
+    @GetMapping("/byUsername/{username}")
+    public List<Client>findClientsByUsername(@PathVariable String username){
+        return clientService.findClientsByUsername(username);
+    }
 }
