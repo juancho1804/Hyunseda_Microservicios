@@ -25,15 +25,6 @@ public class CategoryController {
         return categoryService.save(newCategoryModel);
     }
 
-    @GetMapping(path = "/byId/{id}")
-    public CategoryModel findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
-        return categoryService.findById(id);
-    }
-
-    @GetMapping(path = "/byName/{name}")
-    public  CategoryModel findByName(@PathVariable("name") String name) {
-        return categoryService.findByName(name);
-    }
 
    @PutMapping(path = "/{id}")
     public CategoryModel updateById(@RequestBody CategoryModel categoryModel, @PathVariable("id") long id) throws ProductDomainException,ResourceNotFoundException{
@@ -56,5 +47,15 @@ public class CategoryController {
     @GetMapping(path ="/findByMatchingId/{id}")
     List<CategoryModel> findByMatchingId(@PathVariable String id){
         return categoryService.findByMatchingId(id);
+    }
+
+    @GetMapping(path = "/byName/{name}")
+    public CategoryModel findByName(@PathVariable("name") String name) {
+        return categoryService.findByName(name);
+    }
+
+    @GetMapping(path = "/byId/{id}")
+    public CategoryModel findById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        return categoryService.findById(id);
     }
 }
