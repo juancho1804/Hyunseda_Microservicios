@@ -49,6 +49,7 @@ public class ClientService implements IClientService{
 
     @Override
     public Client crearCliente(Client client) {
+        /*
         Client client1=findClient(client);
         if(client1 == null){
             System.out.println("El cliente se guardo");
@@ -56,6 +57,9 @@ public class ClientService implements IClientService{
         }
         System.out.println("El cliente ya existe, no se guardo");
         return client1;
+
+         */
+        return clientRepo.save(client);
     }
 
 

@@ -41,6 +41,9 @@ public class OrderService implements IOrderService {
 
 
     public Long getMaxOrderId() {
+        if(orderRepository.count()==0){
+            return 1L;
+        }
         return orderRepository.findMaxId();
     }
     public ClientModel findClientById(Long id) {
