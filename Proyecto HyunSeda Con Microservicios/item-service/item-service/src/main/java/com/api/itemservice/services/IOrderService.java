@@ -1,6 +1,7 @@
 package com.api.itemservice.services;
 
 import com.api.itemservice.models.ClientModel;
+import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface IOrderService {
     public Optional<OrderModel> findByClientId(Long id);
     public List<ClientModel> findClientsByUsername(String username);
     public List<OrderModel>findOrdersByUserOfClients(String username);
+    public Long getMaxOrderId();
 }

@@ -1,6 +1,7 @@
 package com.api.itemservice.services;
 
 import com.api.itemservice.models.ClientModel;
+import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
 import com.api.itemservice.models.ProductModel;
 import com.api.itemservice.repositories.IOrderRepository;
@@ -40,6 +41,10 @@ public class OrderService implements IOrderService {
         return orderRepository.findAll();
     }
 
+
+    public Long getMaxOrderId() {
+        return orderRepository.findMaxId();
+    }
     public ClientModel findClientById(Long id) {
         ResponseEntity<ClientModel> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byId/" + id, ClientModel.class);
         if (response.getStatusCode() == HttpStatus.OK) {

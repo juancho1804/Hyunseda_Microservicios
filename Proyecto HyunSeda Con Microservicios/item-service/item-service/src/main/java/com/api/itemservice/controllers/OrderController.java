@@ -1,6 +1,7 @@
 package com.api.itemservice.controllers;
 
 import com.api.itemservice.models.ClientModel;
+import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
 import com.api.itemservice.services.IOrderService;
 import com.api.itemservice.services.OrderService;
@@ -47,5 +48,10 @@ public class OrderController {
     @GetMapping("/users/{username}")
     public List<ClientModel> findClientsByUsername(@PathVariable("username") String username){
         return this.orderService.findClientsByUsername(username);
+    }
+
+    @GetMapping("/maxId")
+    public Long findMaxId(){
+        return this.orderService.getMaxOrderId();
     }
 }

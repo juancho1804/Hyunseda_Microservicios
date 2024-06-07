@@ -9,4 +9,7 @@ import java.util.Optional;
 public interface IOrderRepository extends JpaRepository<OrderModel, Long> {
     @Query("SELECT c FROM OrderModel c WHERE c.clientModel.id = ?1 ")
     Optional<OrderModel> findByClientId(Long id);
+
+    @Query(value = "SELECT MAX(o.id) FROM OrderModel o")
+    Long findMaxId();
 }
