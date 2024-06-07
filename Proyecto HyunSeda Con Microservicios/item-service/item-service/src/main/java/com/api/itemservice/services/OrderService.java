@@ -1,9 +1,7 @@
 package com.api.itemservice.services;
 
 import com.api.itemservice.models.ClientModel;
-import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
-import com.api.itemservice.models.ProductModel;
 import com.api.itemservice.repositories.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
