@@ -1,20 +1,19 @@
 package com.api.itemservice.services;
 
 import com.api.itemservice.models.ClientModel;
-import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IOrderService {
-    public OrderModel crearOrder(OrderModel order);
-    public List<OrderModel> listOrders();
-    public OrderModel crearOrderCliente(Long id,OrderModel order);
-    public ClientModel findClientById(Long id);
+    OrderModel crearOrder(OrderModel order);
+    List<OrderModel> listOrders();
+    OrderModel crearOrderCliente(Long id,OrderModel order);
+    ClientModel findClientById(Long id);
 
-    public Optional<OrderModel> findByClientId(Long id);
-    public List<ClientModel> findClientsByUsername(String username);
-    public List<OrderModel>findOrdersByUserOfClients(String username);
-    public Long getMaxOrderId();
+    Optional<OrderModel> findByClientId(Long id);
+    List<ClientModel> findClientsByUsername(String username);
+    List<OrderModel>findOrdersByUserOfClients(String username);
+    Long getMaxOrderId();
 }

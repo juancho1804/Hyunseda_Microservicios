@@ -1,7 +1,6 @@
 package com.api.productservice.outputport;
 
 import com.api.productservice.models.CategoryModel;
-import com.api.productservice.models.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

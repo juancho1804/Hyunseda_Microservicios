@@ -1,10 +1,8 @@
 package com.api.itemservice.controllers;
 
 import com.api.itemservice.models.ClientModel;
-import com.api.itemservice.models.ItemModel;
 import com.api.itemservice.models.OrderModel;
 import com.api.itemservice.services.IOrderService;
-import com.api.itemservice.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

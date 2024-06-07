@@ -49,26 +49,9 @@ public class ClientService implements IClientService{
 
     @Override
     public Client crearCliente(Client client) {
-        /*
-        Client client1=findClient(client);
-        if(client1 == null){
-            System.out.println("El cliente se guardo");
-            return clientRepo.save(client);
-        }
-        System.out.println("El cliente ya existe, no se guardo");
-        return client1;
-
-         */
         return clientRepo.save(client);
     }
 
-
-    public Client findClient(Client client) {
-        Optional<Client> optionalClient = clientRepo.findByUsernameAndFirstNameAndLastNameAndAddress(
-                client.getUsername(), client.getFirstName(), client.getLastName(), client.getAddress()
-        );
-        return optionalClient.orElse(null);
-    }
 
     public Optional<Client> findById(Long id){
         return clientRepo.findById(id);

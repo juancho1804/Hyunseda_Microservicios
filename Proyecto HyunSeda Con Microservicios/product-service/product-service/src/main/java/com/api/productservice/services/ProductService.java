@@ -5,11 +5,9 @@ import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ProductError;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.inputport.IProductService;
-import com.api.productservice.models.CategoryModel;
 import com.api.productservice.models.ProductModel;
 import com.api.productservice.outputport.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
