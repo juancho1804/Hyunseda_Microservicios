@@ -12,7 +12,6 @@ public interface IProductService {
         ArrayList<ProductModel> getProducts();
         ProductModel save(ProductModel newProduct) throws ProductDomainException;
         ProductModel findById(Long id) throws ResourceNotFoundException;
-        ArrayList<ProductModel> findByName(String name);
         ProductModel updateById(ProductModel newProduct,long id) throws ProductDomainException,ResourceNotFoundException;
         void deleteById(Long id)throws ResourceNotFoundException;
         Map<String, Integer> contarProductosPorCategoria();

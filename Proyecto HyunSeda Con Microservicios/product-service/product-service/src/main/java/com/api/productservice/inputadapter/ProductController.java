@@ -21,18 +21,12 @@ public class ProductController {
     public ArrayList<ProductModel> getAllProducts() {
         return this.productService.getProducts();
     }
+
     @PostMapping
     public ProductModel createProduct(@RequestBody ProductModel product) throws ProductDomainException {
         return this.productService.save(product);
     }
-    @GetMapping(path="/byId/{id}")
-    public ProductModel getProductById(@PathVariable("id") Long id) throws ProductDomainException,ResourceNotFoundException {
-        return this.productService.findById(id);
-    }
-    @GetMapping(path = "/byName/{name}")
-    public ArrayList<ProductModel> getProductByName(@PathVariable("name") String name) {
-        return this.productService.findByName(name);
-    }
+
     @PutMapping(path = "/{id}")
     public ProductModel updateById(@RequestBody ProductModel product,@PathVariable("id") long id)throws ProductDomainException,ResourceNotFoundException {
         return this.productService.updateById(product,id);
