@@ -24,6 +24,7 @@ public class ItemService implements IItemService {
     // URL del servicio de productos
     private final String PRODUCT_SERVICE_URL = "http://localhost:8001/ProductModel";
 
+    @Override
     public List<ItemModel> getItemsFromProducts() {
         // Realizar una solicitud GET al servicio de productos para obtener la lista de productos
         ResponseEntity<ProductModel[]> response = restTemplate.getForEntity(PRODUCT_SERVICE_URL, ProductModel[].class);
@@ -45,6 +46,7 @@ public class ItemService implements IItemService {
             return Collections.emptyList();
         }
     }
+    @Override
     public ProductModel findById(Long id) {
         ResponseEntity<ProductModel> response = restTemplate.getForEntity(PRODUCT_SERVICE_URL + "/byId/" + id, ProductModel.class);
         if (response.getStatusCode() == HttpStatus.OK) {
@@ -54,6 +56,7 @@ public class ItemService implements IItemService {
         return null;
     }
 
+    @Override
     public ItemModel createItemFromProduct(ProductModel product, int cantidad) {
         product=this.findById(product.getId());
         ItemModel item = new ItemModel(product,cantidad);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -26,12 +25,6 @@ public class ItemController {
     }
     @PostMapping("/items")
     public ItemModel createItem(@RequestBody ProductModel productModel, @RequestParam int cantidad) {
-        ItemModel itemModel=itemService.createItemFromProduct(productModel, cantidad);
-        return itemModel;
-    }
-    @GetMapping("/items/{id}")
-    public ProductModel getProductById(@PathVariable("id") Long id) {
-        return itemService.findById(id);
-
+        return itemService.createItemFromProduct(productModel, cantidad);
     }
 }
