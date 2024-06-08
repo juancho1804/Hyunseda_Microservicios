@@ -52,7 +52,7 @@ public class ClientService implements IClientService{
         return clientRepo.save(client);
     }
 
-
+    @Override
     public Optional<Client> findById(Long id){
         return clientRepo.findById(id);
     }
@@ -62,24 +62,6 @@ public class ClientService implements IClientService{
         return clientRepo.findClientsByUsername(username);
     }
 
-    @Override
-    public Client findByUsername(String username) {
-        List<Client> clients = clientRepo.findAll();
-        for (Client client : clients) {
-            if (client.getUsername().equals(username)) {
-                return client;
-            }
-        }
-        return null;
-    }
 
-    @Override
-    public Client actualizarCliente(String username,Client client) {
-        Client cli=findByUsername(username);
-        cli.setFirstName(client.getFirstName());
-        cli.setLastName(client.getLastName());
-        cli.setAddress(client.getAddress());
 
-        return clientRepo.save(cli);
-    }
 }

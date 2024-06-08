@@ -9,9 +9,6 @@ import java.util.Optional;
 public interface IClientService {
     User findUser(String token, String username);
     Client crearCliente(Client client);
-    Client findByUsername(String username);
-    Client actualizarCliente(String username,Client client);
     Optional<Client> findById(Long id);
-
     List<Client> findClientsByUsername(String username);
 }
