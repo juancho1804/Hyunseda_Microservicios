@@ -23,11 +23,9 @@ public class OrderService implements IOrderService {
 
     private final String CLIENT_SERVICE_URL = "http://localhost:8003/clients";
 
-    public OrderModel crearOrder(OrderModel order) {
-        return orderRepository.save(order);
-    }
 
-    public OrderModel crearOrderCliente(Long id,OrderModel order) {
+    @Override
+    public OrderModel createOrderClient(Long id,OrderModel order) {
         ClientModel clientModel=this.findClientById(id);
         if( clientModel!=null){
             order.setClientModel(clientModel);
@@ -35,45 +33,19 @@ public class OrderService implements IOrderService {
         }
         return null;
     }
-    public List<OrderModel> listOrders() {
 
+    @Override
+    public List<OrderModel> getAllOrders() {
         return orderRepository.findAll();
     }
 
 
-    public Long getMaxOrderId() {
+    @Override
+    public Long findMaxId() {
         if(orderRepository.count()==0){
             return 1L;
         }
         return orderRepository.findMaxId();
-    }
-    public ClientModel findClientById(Long id) {
-        ResponseEntity<ClientModel> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byId/" + id, ClientModel.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            ClientModel clientModel = response.getBody();
-            return clientModel;
-        }
-        return null;
-    }
-
-    @Override
-    public List<ClientModel> findClientsByUsername(String username) {
-        ResponseEntity<ClientModel[]> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byUsername/" + username, ClientModel[].class);
-
-        if (response.getStatusCode().is2xxSuccessful()) {
-            ClientModel[] clientsArray = response.getBody();
-            if (clientsArray != null) {
-                return Arrays.asList(clientsArray);
-            }
-        }
-
-        return List.of(); // Devolver una lista vacía si no se encontraron clientes o hubo un error
-    }
-
-
-    @Override
-    public Optional<OrderModel> findByClientId(Long id) {
-        return orderRepository.findByClientId(id);
     }
 
     @Override
@@ -88,8 +60,37 @@ public class OrderService implements IOrderService {
                 orders.add(orderModelOptional.get());
             }
         }
-
         return orders;
 
     }
+
+    public ClientModel findClientById(Long id) {
+        ResponseEntity<ClientModel> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byId/" + id, ClientModel.class);
+        if (response.getStatusCode() == HttpStatus.OK) {
+            ClientModel clientModel = response.getBody();
+            return clientModel;
+        }
+        return null;
+    }
+
+
+    public List<ClientModel> findClientsByUsername(String username) {
+        ResponseEntity<ClientModel[]> response = restTemplate.getForEntity(CLIENT_SERVICE_URL + "/byUsername/" + username, ClientModel[].class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            ClientModel[] clientsArray = response.getBody();
+            if (clientsArray != null) {
+                return Arrays.asList(clientsArray);
+            }
+        }
+
+        return List.of(); // Devolver una lista vacía si no se encontraron clientes o hubo un error
+    }
+
+
+    public Optional<OrderModel> findByClientId(Long id) {
+        return orderRepository.findByClientId(id);
+    }
+
+
 }
