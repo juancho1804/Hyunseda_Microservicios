@@ -4,6 +4,9 @@ import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.ProductModel;
 import com.api.productservice.inputport.IProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,9 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
+    @Operation(summary = "Obtiene todos los productos", description = "Obtiene una lista de todos los productos.")
+    @ApiResponse(responseCode = "200", description = "Lista de productos recuperada exitosamente")
+    @ApiResponse(responseCode = "404", description = "No se encontraron productos")
     @GetMapping
     public ArrayList<ProductModel> getAllProducts() {
         return this.productService.getProducts();

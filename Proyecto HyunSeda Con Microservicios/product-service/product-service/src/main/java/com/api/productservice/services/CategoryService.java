@@ -1,10 +1,12 @@
 package com.api.productservice.services;
 
+import com.api.productservice.domain.Category;
 import com.api.productservice.exceptions.EnumErrorCodes;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ProductError;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.inputport.ICategoryService;
+import com.api.productservice.mappers.CategoryMapper;
 import com.api.productservice.models.CategoryModel;
 import com.api.productservice.outputport.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,79 +22,90 @@ public class CategoryService implements ICategoryService {
 
 
     @Override
-    public ArrayList<CategoryModel> getCategories() {
-        return (ArrayList<CategoryModel>) this.categoryRepository.findAll();
+    public ArrayList<Category> getCategories() {
+        List<CategoryModel> categoryModels = categoryRepository.findAll();
+        ArrayList<Category> categories = new ArrayList<>();
+        for (CategoryModel categoryModel : categoryModels) {
+            categories.add(CategoryMapper.toDomain(categoryModel));
+        }
+        return categories;
     }
 
     @Override
-    public CategoryModel save(CategoryModel newCategoryModel) throws ProductDomainException {
-        List<ProductError> errors = validateDomain(newCategoryModel);
+    public Category save(Category newCategory) throws ProductDomainException {
+        List<ProductError> errors = validateDomain(newCategory);
         if (!errors.isEmpty()) {
             throw new ProductDomainException(errors);
         }
-        return categoryRepository.save(newCategoryModel);
+        CategoryModel categoryModel = CategoryMapper.toEntity(newCategory);
+        return CategoryMapper.toDomain(categoryRepository.save(categoryModel));
     }
 
     @Override
-    public CategoryModel findById(Long id)throws ResourceNotFoundException {
+    public Category findById(Long id) throws ResourceNotFoundException {
         CategoryModel category = this.categoryRepository.findById(id).orElse(null);
-        if(category == null){
+        if (category == null) {
             throw new ResourceNotFoundException();
         }
-        return category;
+        return CategoryMapper.toDomain(category);
     }
 
     @Override
-    public CategoryModel findByName(String name) {
-        CategoryModel categoryModel=new CategoryModel();
-        for(CategoryModel category : this.categoryRepository.findAll()) {
-            if(category.getName().equals(name)) {
-                return category;
+    public Category findByName(String name) {
+        for (CategoryModel categoryModel : categoryRepository.findAll()) {
+            if (categoryModel.getName().equals(name)) {
+                return CategoryMapper.toDomain(categoryModel);
             }
         }
         return null;
     }
 
     @Override
-    public CategoryModel updateById(CategoryModel categoryModel, long id) throws ProductDomainException,ResourceNotFoundException{
-        CategoryModel categoria = this.findById(id);
-        if(categoria == null){
+    public Category updateById(Category newCategory, long id) throws ProductDomainException, ResourceNotFoundException {
+        CategoryModel category = this.categoryRepository.findById(id).orElse(null);
+        if (category == null) {
             throw new ResourceNotFoundException();
         }
-        List<ProductError> errors = validateDomain(categoryModel);
+        List<ProductError> errors = validateDomain(newCategory);
         if (!errors.isEmpty()) {
             throw new ProductDomainException(errors);
         }
-        categoria.setName(categoryModel.getName());
-        categoryRepository.save(categoria);
-        return categoria;
+        category.setName(newCategory.getName());
+        categoryRepository.save(category);
+        return CategoryMapper.toDomain(category);
     }
 
     @Override
-    public boolean deleteById(Long id)throws ResourceNotFoundException {
-        CategoryModel categoryModel=this.findById(id);
-        if(categoryModel==null){
+    public boolean deleteById(Long id) throws ResourceNotFoundException {
+        if (!categoryRepository.existsById(id)) {
             throw new ResourceNotFoundException();
         }
-        this.categoryRepository.deleteById(id);
+        categoryRepository.deleteById(id);
         return true;
     }
 
-    public List<CategoryModel> findByMatchingName(String name){
-        return categoryRepository.findByMatchingName(name);
-    }
-    public List<CategoryModel> findByMatchingId(String id){
-        return categoryRepository.findByMatchingId(id);
-    }
-
-    private List<ProductError> validateDomain(CategoryModel categoryModel) {
-        List<ProductError> errors = new ArrayList<>();
-
-        if (categoryModel.getName() == null || categoryModel.getName().isBlank()) {
-            errors.add(new ProductError(EnumErrorCodes.EMPTY_FIELD, "name", "El nombre de la categoria es obligatorio"));
+    public List<Category> findByMatchingName(String name) {
+        List<CategoryModel> categoryModels = categoryRepository.findByMatchingName(name);
+        List<Category> categories = new ArrayList<>();
+        for (CategoryModel categoryModel : categoryModels) {
+            categories.add(CategoryMapper.toDomain(categoryModel));
         }
+        return categories;
+    }
+    public List<Category> findByMatchingId(String id) {
+        List<CategoryModel> categoryModels = categoryRepository.findByMatchingId(id);
+        List<Category> categories = new ArrayList<>();
+        for (CategoryModel categoryModel : categoryModels) {
+            categories.add(CategoryMapper.toDomain(categoryModel));
+        }
+        return categories;
+    }
 
+    private List<ProductError> validateDomain(Category category) {
+        List<ProductError> errors = new ArrayList<>();
+        if (category.getName() == null || category.getName().isBlank()) {
+            errors.add(new ProductError(EnumErrorCodes.EMPTY_FIELD, "name", "El nombre de la categoría es obligatorio"));
+        }
         return errors;
-
     }
 }
