@@ -1,5 +1,6 @@
 package com.api.productservice.inputport;
 
+import com.api.productservice.domain.Product;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.models.ProductModel;
@@ -9,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface IProductService {
-        ArrayList<ProductModel> getProducts();
-        ProductModel save(ProductModel newProduct) throws ProductDomainException;
-        ProductModel findById(Long id) throws ResourceNotFoundException;
-        ProductModel updateById(ProductModel newProduct,long id) throws ProductDomainException,ResourceNotFoundException;
+        ArrayList<Product> getProducts();
+        Product save(Product newProduct) throws ProductDomainException;
+        Product findById(Long id) throws ResourceNotFoundException;
+        Product updateById(Product newProduct,long id) throws ProductDomainException,ResourceNotFoundException;
         void deleteById(Long id)throws ResourceNotFoundException;
         Map<String, Integer> contarProductosPorCategoria();
-        List<ProductModel> findByMatchingName(String name);
-        List<ProductModel> findByMatchingId(String id);
-        List<ProductModel> findByMatchingCategoryName(String categoryName);
+        List<Product> findByMatchingName(String name);
+        List<Product> findByMatchingId(String id);
+        List<Product> findByMatchingCategoryName(String categoryName);
 }

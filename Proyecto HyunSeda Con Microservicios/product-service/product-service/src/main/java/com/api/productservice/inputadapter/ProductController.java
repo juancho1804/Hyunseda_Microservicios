@@ -1,12 +1,11 @@
 package com.api.productservice.inputadapter;
 
+import com.api.productservice.domain.Product;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ResourceNotFoundException;
-import com.api.productservice.models.ProductModel;
 import com.api.productservice.inputport.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,19 +21,18 @@ public class ProductController {
 
     @Operation(summary = "Obtiene todos los productos", description = "Obtiene una lista de todos los productos.")
     @ApiResponse(responseCode = "200", description = "Lista de productos recuperada exitosamente")
-    @ApiResponse(responseCode = "404", description = "No se encontraron productos")
     @GetMapping
-    public ArrayList<ProductModel> getAllProducts() {
+    public ArrayList<Product> getAllProducts() {
         return this.productService.getProducts();
     }
 
     @PostMapping
-    public ProductModel createProduct(@RequestBody ProductModel product) throws ProductDomainException {
+    public Product createProduct(@RequestBody Product product) throws ProductDomainException {
         return this.productService.save(product);
     }
 
     @PutMapping(path = "/{id}")
-    public ProductModel updateById(@RequestBody ProductModel product,@PathVariable("id") long id)throws ProductDomainException,ResourceNotFoundException {
+    public Product updateById(@RequestBody Product product,@PathVariable("id") long id)throws ProductDomainException,ResourceNotFoundException {
         return this.productService.updateById(product,id);
     }
     @DeleteMapping(path = "{id}")
@@ -48,18 +46,18 @@ public class ProductController {
     }
 
     @GetMapping("/byNameMatching/{name}")
-    public List<ProductModel> findByMatchingName(@PathVariable String name) {
+    public List<Product> findByMatchingName(@PathVariable String name) {
         // Lógica para buscar productos por coincidencia de cadenas en el nombre
         return productService.findByMatchingName(name);
     }
 
     @GetMapping("/byIdMatching/{id}")
-    public List<ProductModel> findByMatchingId(@PathVariable String id) {
+    public List<Product> findByMatchingId(@PathVariable String id) {
         // Lógica para buscar productos por coincidencia de cadenas en el id
         return productService.findByMatchingId(id);
     }
     @GetMapping("/byCategoryMatching/{name}")
-    public List<ProductModel> findByMatchingCategory(@PathVariable String name) {
+    public List<Product> findByMatchingCategory(@PathVariable String name) {
         return productService.findByMatchingCategoryName(name);
     }
 

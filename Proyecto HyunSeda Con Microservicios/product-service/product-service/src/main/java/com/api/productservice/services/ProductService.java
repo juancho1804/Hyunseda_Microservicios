@@ -1,10 +1,14 @@
 package com.api.productservice.services;
 
+import com.api.productservice.domain.Product;
 import com.api.productservice.exceptions.EnumErrorCodes;
 import com.api.productservice.exceptions.ProductDomainException;
 import com.api.productservice.exceptions.ProductError;
 import com.api.productservice.exceptions.ResourceNotFoundException;
 import com.api.productservice.inputport.IProductService;
+import com.api.productservice.mappers.CategoryMapper;
+import com.api.productservice.mappers.ProductMapper;
+import com.api.productservice.models.CategoryModel;
 import com.api.productservice.models.ProductModel;
 import com.api.productservice.outputport.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +24,22 @@ public class ProductService implements IProductService {
     @Autowired
     IProductRepository productRepository;
 
-    public ArrayList<ProductModel>getProducts(){
-        return (ArrayList<ProductModel>) productRepository.findAll();
+    public ArrayList<Product> getProducts() {
+        List<ProductModel> productModels = productRepository.findAll();
+        ArrayList<Product> products = new ArrayList<>();
+        for (ProductModel productModel : productModels) {
+            products.add(ProductMapper.toDomain(productModel));
+        }
+        return products;
     }
 
-    public ProductModel save(ProductModel newProduct)throws ProductDomainException {
+    public Product save(Product newProduct) throws ProductDomainException {
         List<ProductError> errors = validateDomain(newProduct);
         if (!errors.isEmpty()) {
             throw new ProductDomainException(errors);
         }
-        return productRepository.save(newProduct);
+        ProductModel productModel = ProductMapper.toEntity(newProduct);
+        return ProductMapper.toDomain(productRepository.save(productModel));
     }
 
     public Map<String, Integer> contarProductosPorCategoria() {
@@ -51,34 +61,32 @@ public class ProductService implements IProductService {
     }
 
 
-    public ProductModel findById(Long id) throws ResourceNotFoundException{
+    public Product findById(Long id) throws ResourceNotFoundException {
         ProductModel prod = this.productRepository.findById(id).orElse(null);
-        if(prod == null){
+        if (prod == null) {
             throw new ResourceNotFoundException();
         }
-
-        return prod;
-
+        return ProductMapper.toDomain(prod);
     }
-    public ArrayList<ProductModel> findByName(String name) {
+
+    public ArrayList<Product> findByName(String name) {
         ArrayList<ProductModel> productList = (ArrayList<ProductModel>) this.productRepository.findAll();
-        ArrayList<ProductModel> productsWithName = new ArrayList<>();
+        ArrayList<Product> productsWithName = new ArrayList<>();
         for (ProductModel product : productList) {
             if (name.equalsIgnoreCase(product.getName())) {
-                productsWithName.add(product);
+                productsWithName.add(ProductMapper.toDomain(product));
             }
         }
         return productsWithName;
     }
 
 
-    public ProductModel updateById(ProductModel newProduct,long id)throws ProductDomainException, ResourceNotFoundException{
-        ProductModel product= this.findById(id);
-        if(product == null){
+    public Product updateById(Product newProduct, long id) throws ProductDomainException, ResourceNotFoundException {
+        ProductModel product = this.productRepository.findById(id).orElse(null);
+        if (product == null) {
             throw new ResourceNotFoundException();
         }
-        List<ProductError> errors = validateDomain(product);
-
+        List<ProductError> errors = validateDomain(newProduct);
         if (!errors.isEmpty()) {
             throw new ProductDomainException(errors);
         }
@@ -86,11 +94,14 @@ public class ProductService implements IProductService {
         product.setDescription(newProduct.getDescription());
         product.setPrice(newProduct.getPrice());
         product.setImage(newProduct.getImage());
-        product.setCategory(newProduct.getCategory());
+        CategoryModel categoryModel = CategoryMapper.toEntity(newProduct.getCategory());
+        product.setCategory(categoryModel);
 
         productRepository.save(product);
-        return product;
+        return ProductMapper.toDomain(product);
     }
+
+
     public void deleteById(Long id) throws ResourceNotFoundException{
 
         if(productRepository.findById(id).isPresent()){
@@ -100,19 +111,34 @@ public class ProductService implements IProductService {
         }
 
     }
-    public List<ProductModel>findByMatchingName(String name){
-        return this.productRepository.findByMatchingName(name.toLowerCase());
+    public List<Product> findByMatchingName(String name) {
+        List<ProductModel> productModels = this.productRepository.findByMatchingName(name.toLowerCase());
+        List<Product> products = new ArrayList<>();
+        for (ProductModel productModel : productModels) {
+            products.add(ProductMapper.toDomain(productModel));
+        }
+        return products;
     }
-    public List<ProductModel>findByMatchingId(String id){
-        return this.productRepository.findByMatchingId(id);
+    public List<Product> findByMatchingId(String id) {
+        List<ProductModel> productModels = this.productRepository.findByMatchingId(id);
+        List<Product> products = new ArrayList<>();
+        for (ProductModel productModel : productModels) {
+            products.add(ProductMapper.toDomain(productModel));
+        }
+        return products;
     }
-    public List<ProductModel> findByMatchingCategoryName(String categoryName){
-        return this.productRepository.findByMatchingCategoryName(categoryName);
+    public List<Product> findByMatchingCategoryName(String categoryName) {
+        List<ProductModel> productModels = this.productRepository.findByMatchingCategoryName(categoryName);
+        List<Product> products = new ArrayList<>();
+        for (ProductModel productModel : productModels) {
+            products.add(ProductMapper.toDomain(productModel));
+        }
+        return products;
     }
 
 
 
-    private List<ProductError> validateDomain(ProductModel product) {
+    private List<ProductError> validateDomain(Product product) {
         List<ProductError> errors = new ArrayList<>();
 
         if (product.getName() == null || product.getName().isBlank()) {
