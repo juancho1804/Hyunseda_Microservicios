@@ -14,6 +14,7 @@ public class ProductServiceApplication {
 		SpringApplication.run(ProductServiceApplication.class, args);
 	}
 
+
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
