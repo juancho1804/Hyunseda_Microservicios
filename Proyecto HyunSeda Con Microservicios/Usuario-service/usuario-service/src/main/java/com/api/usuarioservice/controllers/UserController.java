@@ -31,6 +31,7 @@ public class UserController {
         return userService.getUsers();
     }
 
+
     @PostMapping
     @Operation(summary = "Crear un usuario",
             description = "Crea un nuevo usuario en la base de datos.")
@@ -41,8 +42,11 @@ public class UserController {
             content = @Content(mediaType = "application/json",
                     examples = @ExampleObject(value = "{\"errors\": [{\"code\": \"EMPTY_FIELD\", \"field\": \"username\", \"message\": \"El nombre de usuario es obligatorio\"}]}")))
     public UserModel createUser(@RequestBody UserModel userModel) {
+
         return userService.saveUser(userModel);
     }
+
+
     @GetMapping("/byUsername/{username}")
     @Operation(summary = "Obtener un usuario por nombre de usuario",
             description = "Obtiene un usuario cuyo nombre de usuario coincida exactamente con el nombre ingresado.")
