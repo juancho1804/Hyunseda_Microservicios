@@ -25,6 +25,15 @@ public class ClientService implements IClientService{
     private final String USER_SERVICE_URL = "http://localhost:8004/UserModel";
 
 
+    /**
+     * @brief Método para buscar un usuario por su token y nombre de usuario.
+     *
+     * Este método realiza una solicitud HTTP GET al servicio de usuarios para buscar un usuario por su token y nombre de usuario.
+     *
+     * @param token El token del usuario.
+     * @param username El nombre de usuario del usuario.
+     * @return El usuario si la solicitud fue exitosa, o null en caso contrario.
+     */
     @Override
     public User findUser(String token, String username) {
         // Configurar cabecera con el token
@@ -47,16 +56,40 @@ public class ClientService implements IClientService{
         }
     }
 
+    /**
+     * @brief Método para crear un nuevo cliente.
+     *
+     * Este método utiliza el repositorio de clientes para guardar un nuevo cliente en la base de datos.
+     *
+     * @param client El cliente a crear.
+     * @return El cliente creado.
+     */
     @Override
     public Client crearCliente(Client client) {
         return clientRepo.save(client);
     }
 
+    /**
+     * @brief Método para buscar un cliente por su ID.
+     *
+     * Este método utiliza el repositorio de clientes para buscar un cliente en la base de datos por su ID.
+     *
+     * @param id El ID del cliente.
+     * @return Un Optional que puede contener el cliente si se encuentra.
+     */
     @Override
     public Optional<Client> findById(Long id){
         return clientRepo.findById(id);
     }
 
+    /**
+     * @brief Método para buscar clientes por su nombre de usuario.
+     *
+     * Este método utiliza el repositorio de clientes para buscar clientes en la base de datos por su nombre de usuario.
+     *
+     * @param username El nombre de usuario del cliente.
+     * @return Una lista de clientes con el nombre de usuario especificado.
+     */
     @Override
     public List<Client> findClientsByUsername(String username) {
         return clientRepo.findClientsByUsername(username);

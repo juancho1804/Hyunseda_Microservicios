@@ -24,6 +24,13 @@ public class ItemService implements IItemService {
     // URL del servicio de productos
     private final String PRODUCT_SERVICE_URL = "http://localhost:8001/ProductModel";
 
+    /**
+     * @brief Método para obtener una lista de objetos ItemModel a partir de los productos.
+     *
+     * Este método realiza una solicitud GET al servicio de productos para obtener la lista de productos y luego mapea los productos a ítems.
+     *
+     * @return Una lista de objetos ItemModel si la solicitud fue exitosa, o una lista vacía en caso contrario.
+     */
     @Override
     public List<ItemModel> getItemsFromProducts() {
         // Realizar una solicitud GET al servicio de productos para obtener la lista de productos
@@ -46,6 +53,15 @@ public class ItemService implements IItemService {
             return Collections.emptyList();
         }
     }
+
+    /**
+     * @brief Método para buscar un producto por su ID.
+     *
+     * Este método realiza una solicitud GET al servicio de productos para buscar un producto por su ID.
+     *
+     * @param id El ID del producto.
+     * @return El producto si la solicitud fue exitosa, o null en caso contrario.
+     */
     @Override
     public ProductModel findById(Long id) {
         ResponseEntity<ProductModel> response = restTemplate.getForEntity(PRODUCT_SERVICE_URL + "/byId/" + id, ProductModel.class);
@@ -56,6 +72,15 @@ public class ItemService implements IItemService {
         return null;
     }
 
+    /**
+     * @brief Método para crear un nuevo objeto ItemModel a partir de un producto y una cantidad.
+     *
+     * Este método busca un producto por su ID y luego crea un nuevo objeto ItemModel a partir del producto y la cantidad especificada.
+     *
+     * @param product El producto a partir del cual se creará el objeto ItemModel.
+     * @param cantidad La cantidad del producto en el objeto ItemModel.
+     * @return El objeto ItemModel creado.
+     */
     @Override
     public ItemModel createItemFromProduct(ProductModel product, int cantidad) {
         product=this.findById(product.getId());
